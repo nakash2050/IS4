@@ -1,0 +1,46 @@
+<div class="container-fluid">
+  <div class="jumbotron text-center">
+    <h1>
+      <span translate>APP_NAME</span>
+    </h1>
+    <p><i class="far fa-bookmark"></i> <span translate>Version</span> {{ version }}</p>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title">Access Token</h5>
+    </div>
+    <div class="card-body">
+      {{ accessToken$ | json }}
+    </div>
+  </div>
+  <p></p>
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title">ID Token</h5>
+    </div>
+    <div class="card-body">
+      {{ idToken$ | json }}
+    </div>
+  </div>
+  <p></p>
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title">Refresh Token</h5>
+    </div>
+    <div class="card-body">
+      {{ refreshToken$ | json }}
+    </div>
+  </div>
+  <p></p>
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title">profileData</h5>
+    </div>
+    <div class="card-body">
+      <pre
+        >{{ profileData$ | async | json }}
+    </pre
+      >
+    </div>
+  </div>
+</div>

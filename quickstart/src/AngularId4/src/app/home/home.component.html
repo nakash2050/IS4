@@ -1,0 +1,28 @@
+<div class="container-fluid">
+  <div class="jumbotron text-center">
+    <h1>
+      <img class="logo" src="assets/ngx-rocket-logo.png" alt="angular logo" />
+      <span translate>Hello world !</span>
+    </h1>
+    <app-loader [isLoading]="isLoading"></app-loader>
+    <button class="btn btn-primary" (click)="callapi()" *ngIf="!isLoading">Test API</button>
+    <button class="btn btn-success" (click)="getuserInfo()" *ngIf="!isLoading">User Info API</button>
+    <!-- <q [hidden]="isLoading">{{ quote }}</q> -->
+  </div>
+  <div class="card" *ngIf="userInfo$">
+    <div class="card-header">
+      Proxy call to the Identity Server User Info Endpoint by passing the Access Token
+    </div>
+    <p class="card-title">REST Endpoint: {{this.apiEndpointsService.getUserInfoEndpoint()}}</p>
+    <pre>{{userInfo$ | json}}</pre>
+  </div>
+  <div class="card" *ngIf="webapiData$">
+    <div class="card-header">
+      This is an example of calling a secure REST API using Angular HTTP Client library. The JWT Access token is passed
+      thru the header. The JSON response from the server is displayed in the table format.
+    </div>
+    <p class="card-title">REST Endpoint: {{this.apiEndpointsService.getIdentityEndpoint()}}</p>
+    <pre>{{webapiData$ | json}}</pre>
+    <div class="card-footer text-muted">Note: To view the Access Token, click on About menu.</div>
+  </div>
+</div>
