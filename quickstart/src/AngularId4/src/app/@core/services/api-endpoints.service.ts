@@ -42,7 +42,9 @@ export class ApiEndpointsService {
   // call Mock endpoint
   public getNewsEndpoint = (): string => this.createUrl('41gRGwOaw', true);
   public getIdentityEndpoint = (): string => this.createUrl('identity', true);
-  public getUserInfoEndpoint = (): string => this.createUrl('identity/userinfo/customer', true);
+  public getUserInfoAliceEndpoint = (): string => this.createUrl('identity/userinfo/alice', true);
+  public getUserInfoBobEndpoint = (): string => this.createUrl('identity/userinfo/bob', true);
+  public getUserInfoJanEndpoint = (): string => this.createUrl('identity/userinfo/jan', true);
 
   public invalidUrlEndpoint = (): string => this.createUrl('invalidurl', true);
 

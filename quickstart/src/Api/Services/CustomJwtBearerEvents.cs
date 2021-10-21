@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Core.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Api.Services
@@ -21,7 +23,7 @@ namespace Api.Services
             JsonElement permissions;
             var userInfo = await _userInfo.GetUserInfo();
 
-            userInfo.Json.TryGetProperty("permissions", out permissions);
+            userInfo.Json.TryGetProperty("permission", out permissions);
 
             if (permissions.ValueKind != JsonValueKind.Undefined)
             {
@@ -43,5 +45,20 @@ namespace Api.Services
                 context.Principal.AddIdentity(permissionIdentity);
             }
         }
+
+        // public override async Task Forbidden(ForbiddenContext context)
+        // {
+        //     var response = context.Response;
+
+        //     var error = new ErrorResponse { Error = "forbidden", ErrorDescription = context.Result.Failure.Message };
+
+        //     byte[] data = Encoding.UTF8.GetBytes(System.Text.Json.JsonSerializer.Serialize(error));
+
+        //     response.ContentType = "application/json";
+        //     await response.Body.WriteAsync(data, 0, data.Length);
+        //     await response.Body.FlushAsync();
+        // }
+
+        
     }
 }

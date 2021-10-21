@@ -1,0 +1,28 @@
+﻿<Properties StartupConfiguration="{91A13807-A002-44A0-955F-A3095C3C714F}|SelfHost">
+  <MonoDevelop.Ide.Workbench ActiveDocument="src/IdentityServerAspNetIdentity/SeedData.cs">
+    <Files>
+      <File FileName="src/IdentityServerAspNetIdentity/Startup.cs" Line="45" Column="58" />
+      <File FileName="src/IdentityServerAspNetIdentity/SeedData.cs" Line="53" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Quickstart" expanded="True">
+            <Node name="src" expanded="True">
+              <Node name="IdentityServerAspNetIdentity" expanded="True">
+                <Node name="SeedData.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.src.IdentityServer PreferredExecutionTarget="/Applications/Microsoft Edge.app" />
+</Properties>

@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Api.AuthUtils.PolicyProvider;
 using Api.Services;
+using Core.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -18,8 +22,6 @@ namespace Api
 {
     public class Startup
     {
-        private readonly IUserInfo _userInfo;
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -55,19 +57,43 @@ namespace Api
                         ValidAudiences = new[] { "invoice", "customer", "https://localhost:5001/resources" }
                     };
                     // An alternate to options.Events = new Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents as DI Service is not resolved if option.EventType is used 
-                    options.EventsType = typeof(CustomJwtBearerEvents); 
+                    options.EventsType = typeof(CustomJwtBearerEvents);
                 });
+
+            // Register our custom Authorization handler
+            services.AddSingleton<IAuthorizationHandler, PermissionHandler>();
+
+            // Overrides the DefaultAuthorizationPolicyProvider with our own
+            services.AddSingleton<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("customer", policy =>
-                {
-                    policy.RequireAssertion(context => context.User.HasClaim(c => c.Type == "permissions" && (c.Value == "customer.read" || c.Value == "customer.contact")));
-                });
-                options.AddPolicy("invoice", policy =>
-                {
-                    policy.RequireAssertion(context => context.User.HasClaim(c => c.Type == "permissions" && (c.Value == "invoice.read" || c.Value == "invoice.pay")));
-                });
+                // One static policy - All users must be authenticated
+                options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser()
+                    .Build();
+
+                // options.AddPolicy("customer", policy =>
+                // {
+                //     policy.RequireAssertion(context => { 
+                //         var authorizationFilterContext = context.Resource as Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext;
+
+                //         var result = context.User.HasClaim(c => c.Type == "permissions" && (c.Value == "customer.read" || c.Value == "customer.contact"));
+
+                //         if (!result)
+                //         {
+                //             authorizationFilterContext.Result = new JsonResult("Custom message") { StatusCode = 401 };
+                //             context.Fail();
+                //         }
+
+                //         return result;
+                //     });
+                // });
+                // options.AddPolicy("invoice", policy =>
+                // {
+                //     policy.RequireAssertion(context => context.User.HasClaim(c => c.Type == "permissions" && (c.Value == "invoice.read" || c.Value == "invoice.pay")));
+                // });
+
             });
 
             services.AddSwaggerGen(c =>

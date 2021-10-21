@@ -19,7 +19,7 @@ export const environment = {
   secureRoutes: ['https://localhost:6001', 'https://cat-netcore-api.azurewebsites.net/api'],
   stsServer: 'https://localhost:5001',
   clientId: 'angular',
-  scope: 'openid profile offline_access invoice.read permissions',
+  scope: 'openid profile offline_access permissions ride.modify',
   Api_Endpoint: 'https://cat-netcore-api.azurewebsites.net/api/v1',
   Api_Mock_Endpoint: 'https://localhost:6001',
 };

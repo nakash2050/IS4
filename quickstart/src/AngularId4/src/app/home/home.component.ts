@@ -19,6 +19,8 @@ export class HomeComponent implements OnInit {
   isLoading = false;
   webapiData$: any;
   userInfo$: any;
+  endpointUrl: any;
+  username: string = 'Alice';
 
   constructor(
     // Application Services
@@ -50,8 +52,12 @@ export class HomeComponent implements OnInit {
   getuserInfo() {
     this.isLoading = true;
     this.webapiData$ = undefined;
+
+    this.endpointUrl = this.username === 'Alice' ? this.apiEndpointsService.getUserInfoAliceEndpoint() : 
+                       this.username === 'Bob' ? this.apiEndpointsService.getUserInfoBobEndpoint() : this.apiEndpointsService.getUserInfoJanEndpoint();
+
     this.apiHttpService
-      .get(this.apiEndpointsService.getUserInfoEndpoint())
+      .get(this.endpointUrl)
       .pipe(finalize(() => this.isLoading = false))
       .subscribe(resp => {
         this.userInfo$ = resp;
